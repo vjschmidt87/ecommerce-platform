@@ -1,0 +1,37 @@
+@use 'variables' as *;
+@use 'mixins' as *;
+
+.search-bar {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.search-icon {
+  position: absolute;
+  left: 0.875rem;
+  color: $gray-400;
+  pointer-events: none;
+}
+
+.search-input {
+  @include form-input-base;
+  padding: $spacing-base $spacing-5xl $spacing-base 2.75rem;
+}
+
+.search-clear {
+  position: absolute;
+  right: $spacing-md;
+  @include flex-center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  color: $gray-400;
+  cursor: pointer;
+  transition: $transition;
+
+  &:hover {
+    color: $gray-600;
+    background-color: $gray-100;
+  }
+}

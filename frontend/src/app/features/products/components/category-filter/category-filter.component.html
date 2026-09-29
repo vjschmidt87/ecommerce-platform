@@ -1,0 +1,23 @@
+<div class="category-filter">
+  <h3 class="filter-title">Categories</h3>
+  <ul class="category-list">
+    <li>
+      <button
+        class="category-item"
+        [class.active]="selectedCategoryId === null"
+        (click)="selectCategory(null)">
+        <span class="category-radio"></span>
+        All Categories
+      </button>
+    </li>
+    <li *ngFor="let category of categories; trackBy: trackByCategoryId">
+      <button
+        class="category-item"
+        [class.active]="selectedCategoryId === category.id"
+        (click)="selectCategory(category.id)">
+        <span class="category-radio"></span>
+        {{ category.name }}
+      </button>
+    </li>
+  </ul>
+</div>

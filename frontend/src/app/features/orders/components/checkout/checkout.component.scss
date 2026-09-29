@@ -1,0 +1,91 @@
+@use 'variables' as *;
+@use 'mixins' as *;
+
+.checkout-page h1 {
+  @include heading-lg;
+  margin-bottom: $spacing-3xl;
+}
+
+.checkout-error {
+  @include error-alert;
+}
+
+.checkout-layout {
+  display: grid;
+  grid-template-columns: 1fr 380px;
+  gap: $spacing-4xl;
+  align-items: start;
+}
+
+.section-card {
+  @include card-base;
+  padding: $spacing-3xl;
+
+  h2 {
+    @include heading-md;
+    margin-bottom: $spacing-2xl;
+  }
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: $spacing-xl;
+}
+
+// Summary
+.summary-items {
+  @include flex-column;
+  gap: $spacing-lg;
+}
+
+.summary-item {
+  @include flex-between;
+  font-size: $font-size-md;
+}
+
+.summary-item-info {
+  display: flex;
+  gap: $spacing-md;
+  align-items: center;
+}
+
+.item-name {
+  color: $gray-700;
+  font-weight: 500;
+}
+
+.item-qty {
+  color: $gray-400;
+  font-size: $font-size-base;
+}
+
+.item-total {
+  font-weight: 500;
+  color: $gray-800;
+}
+
+.summary-divider {
+  @include divider($spacing-xl);
+}
+
+.summary-row {
+  @include summary-row;
+}
+
+.summary-total {
+  font-size: $font-size-xl;
+  font-weight: 700;
+  color: $gray-900;
+}
+
+@include tablet {
+  .checkout-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+}

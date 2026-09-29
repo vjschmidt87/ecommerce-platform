@@ -1,0 +1,154 @@
+@use 'variables' as *;
+@use 'mixins' as *;
+
+.product-list-page {
+  padding-top: $spacing-md;
+}
+
+.page-header {
+  @include flex-between;
+  align-items: baseline;
+  margin-bottom: $spacing-3xl;
+
+  h1 {
+    @include heading-lg;
+  }
+}
+
+.result-count {
+  font-size: $font-size-md;
+  color: $gray-500;
+}
+
+.product-layout {
+  display: grid;
+  grid-template-columns: $sidebar-width 1fr;
+  gap: $spacing-4xl;
+  align-items: start;
+}
+
+.sidebar {
+  @include flex-column;
+  gap: $spacing-2xl;
+  @include sticky-sidebar;
+}
+
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat($product-grid-cols-desktop, 1fr);
+  gap: $grid-gap;
+}
+
+// Skeleton loading
+.skeleton-card {
+  @include card-base;
+}
+
+.skeleton-image {
+  aspect-ratio: 4 / 3;
+  @include skeleton-shimmer;
+}
+
+.skeleton-info {
+  padding: $spacing-xl $spacing-2xl $spacing-2xl;
+}
+
+.skeleton-line {
+  height: 12px;
+  border-radius: 6px;
+  @include skeleton-shimmer;
+  margin-bottom: $spacing-lg;
+}
+
+.skeleton-title {
+  width: 80%;
+  height: 16px;
+}
+
+.skeleton-desc {
+  width: 100%;
+}
+
+.skeleton-price {
+  width: 40%;
+  height: 20px;
+  margin-bottom: 0;
+}
+
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+// Empty state
+.empty-state {
+  @include empty-state;
+}
+
+// Pagination
+.pagination {
+  @include flex-center;
+  gap: $spacing-md;
+  margin-top: $spacing-4xl;
+  padding-top: $spacing-3xl;
+  border-top: 1px solid $gray-200;
+}
+
+.page-numbers {
+  display: flex;
+  gap: $spacing-xs;
+}
+
+.page-btn {
+  @include flex-center;
+  width: 36px;
+  height: 36px;
+  border-radius: $border-radius;
+  font-size: $font-size-md;
+  font-weight: 500;
+  color: $gray-600;
+  cursor: pointer;
+  transition: $transition;
+
+  &:hover {
+    background-color: $gray-100;
+  }
+
+  &.active {
+    background-color: $primary;
+    color: $white;
+  }
+}
+
+@include laptop {
+  .product-grid {
+    grid-template-columns: repeat($product-grid-cols-tablet, 1fr);
+  }
+}
+
+@include tablet {
+  .product-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .sidebar {
+    position: static;
+    flex-direction: row;
+    flex-wrap: wrap;
+
+    > * {
+      flex: 1;
+      min-width: 200px;
+    }
+  }
+
+  .product-grid {
+    grid-template-columns: repeat($product-grid-cols-mobile, 1fr);
+  }
+}
+
+@include mobile {
+  .product-grid {
+    grid-template-columns: repeat($product-grid-cols-xs, 1fr);
+  }
+}

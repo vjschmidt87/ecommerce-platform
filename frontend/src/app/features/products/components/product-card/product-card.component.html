@@ -1,0 +1,37 @@
+<a [routerLink]="['/products', product.id]" class="product-card card">
+  <div class="product-image">
+    <img
+      *ngIf="product.imageUrl"
+      [src]="product.imageUrl"
+      [alt]="product.name"
+      loading="lazy">
+    <div *ngIf="!product.imageUrl" class="image-placeholder">
+      <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+        <circle cx="8.5" cy="8.5" r="1.5"></circle>
+        <polyline points="21 15 16 10 5 21"></polyline>
+      </svg>
+    </div>
+    <span class="category-badge badge badge-primary" *ngIf="product.categoryName">
+      {{ product.categoryName }}
+    </span>
+    <span class="stock-badge badge badge-danger" *ngIf="!inStock">
+      Out of Stock
+    </span>
+  </div>
+
+  <div class="product-info">
+    <h3 class="product-name">{{ product.name }}</h3>
+    <p class="product-description">{{ product.description }}</p>
+    <div class="product-footer">
+      <span class="product-price">{{ product.price | currency:'USD' }}</span>
+      <button
+        class="btn btn-primary btn-sm add-to-cart-btn"
+        [class.added]="added"
+        [disabled]="!inStock"
+        (click)="addToCart($event)">
+        {{ added ? 'Added!' : 'Add to Cart' }}
+      </button>
+    </div>
+  </div>
+</a>

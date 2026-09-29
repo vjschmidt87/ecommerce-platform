@@ -1,0 +1,68 @@
+<div class="product-list-page container">
+  <div class="page-header">
+    <h1>Products</h1>
+    <p class="result-count" *ngIf="!loading">{{ totalElements }} products found</p>
+  </div>
+
+  <div class="product-layout">
+    <aside class="sidebar">
+      <app-search-bar (searchChange)="onSearchChange($event)"></app-search-bar>
+      <app-category-filter (categoryChange)="onCategoryChange($event)"></app-category-filter>
+    </aside>
+
+    <main class="product-content">
+      <div class="loading-state" *ngIf="loading">
+        <div class="product-grid">
+          <div class="skeleton-card" *ngFor="let i of [1,2,3,4,5,6,7,8]">
+            <div class="skeleton-image"></div>
+            <div class="skeleton-info">
+              <div class="skeleton-line skeleton-title"></div>
+              <div class="skeleton-line skeleton-desc"></div>
+              <div class="skeleton-line skeleton-price"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="!loading && products.length === 0" class="empty-state">
+        <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+        <h2>No products found</h2>
+        <p>Try adjusting your search or filter criteria</p>
+      </div>
+
+      <div class="product-grid" *ngIf="!loading && products.length > 0">
+        <app-product-card
+          *ngFor="let product of products; trackBy: trackByProductId"
+          [product]="product">
+        </app-product-card>
+      </div>
+
+      <div class="pagination" *ngIf="totalPages > 1">
+        <button
+          class="btn btn-secondary btn-sm"
+          [disabled]="currentPage === 0"
+          (click)="goToPage(currentPage - 1)">
+          Previous
+        </button>
+        <div class="page-numbers">
+          <button
+            *ngFor="let page of pages; trackBy: trackByPageIndex"
+            class="page-btn"
+            [class.active]="page === currentPage"
+            (click)="goToPage(page)">
+            {{ page + 1 }}
+          </button>
+        </div>
+        <button
+          class="btn btn-secondary btn-sm"
+          [disabled]="currentPage === totalPages - 1"
+          (click)="goToPage(currentPage + 1)">
+          Next
+        </button>
+      </div>
+    </main>
+  </div>
+</div>

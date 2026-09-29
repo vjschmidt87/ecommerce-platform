@@ -1,0 +1,246 @@
+@use 'styles/variables' as *;
+@use 'styles/mixins' as *;
+@use 'styles/typography';
+@use 'styles/buttons';
+@use 'styles/forms';
+
+// ===== CSS Reset =====
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: $font-family;
+  color: $gray-800;
+  background-color: $gray-50;
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+a {
+  color: $primary;
+  text-decoration: none;
+  transition: $transition;
+
+  &:hover {
+    color: $primary-dark;
+  }
+}
+
+ul, ol {
+  list-style: none;
+}
+
+button {
+  cursor: pointer;
+  font-family: inherit;
+  font-size: inherit;
+  border: none;
+  background: none;
+}
+
+input, select, textarea {
+  font-family: inherit;
+  font-size: inherit;
+}
+
+// ===== Utility Classes =====
+.container {
+  width: 100%;
+  max-width: $container-max-width;
+  margin: 0 auto;
+  padding: 0 $spacing-3xl;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: $spacing-md;
+  padding: $spacing-base $spacing-2xl;
+  font-weight: 500;
+  font-size: $font-size-md;
+  border-radius: $border-radius;
+  transition: $transition;
+  white-space: nowrap;
+  line-height: 1.5;
+}
+
+.btn-primary {
+  background-color: $primary;
+  color: $white;
+
+  &:hover {
+    background-color: $primary-dark;
+    transform: translateY(-1px);
+    box-shadow: $shadow-md;
+  }
+
+  &:disabled {
+    background-color: $gray-300;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+  }
+}
+
+.btn-secondary {
+  background-color: $white;
+  color: $gray-700;
+  border: 1px solid $gray-300;
+
+  &:hover {
+    background-color: $gray-50;
+    border-color: $gray-400;
+  }
+}
+
+.btn-danger {
+  background-color: $danger;
+  color: $white;
+
+  &:hover {
+    background-color: $danger-dark;
+  }
+}
+
+.btn-accent {
+  background-color: $accent;
+  color: $white;
+
+  &:hover {
+    background-color: $accent-dark;
+  }
+}
+
+.btn-sm {
+  padding: $spacing-sm $spacing-lg;
+  font-size: $font-size-base;
+}
+
+.btn-lg {
+  padding: $spacing-lg $spacing-3xl;
+  font-size: $font-size-lg;
+}
+
+.btn-block {
+  display: flex;
+  width: 100%;
+}
+
+// ===== Form Styles =====
+.form-group {
+  margin-bottom: $spacing-2xl;
+}
+
+.form-label {
+  display: block;
+  font-size: $font-size-md;
+  font-weight: 500;
+  color: $gray-700;
+  margin-bottom: $spacing-sm;
+}
+
+.form-input {
+  width: 100%;
+  padding: $spacing-base 0.875rem;
+  border: 1px solid $gray-300;
+  border-radius: $border-radius;
+  font-size: $font-size-default;
+  color: $gray-800;
+  background-color: $white;
+  transition: $transition;
+
+  &:focus {
+    outline: none;
+    border-color: $primary;
+    box-shadow: 0 0 0 3px $primary-alpha-15;
+  }
+
+  &.ng-touched.ng-invalid {
+    border-color: $danger;
+  }
+}
+
+.form-error {
+  font-size: $font-size-base;
+  color: $danger;
+  margin-top: $spacing-xs;
+}
+
+// ===== Badge =====
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.125rem $spacing-md;
+  font-size: $font-size-sm;
+  font-weight: 500;
+  border-radius: $border-radius-full;
+  line-height: 1.5;
+}
+
+.badge-primary {
+  background-color: $info-light;
+  color: $primary-dark;
+}
+
+.badge-success {
+  background-color: $success-light;
+  color: $success-text;
+}
+
+.badge-warning {
+  background-color: $warning-light;
+  color: $warning-text;
+}
+
+.badge-danger {
+  background-color: $danger-light;
+  color: $danger-text;
+}
+
+// ===== Card =====
+.card {
+  background: $white;
+  border-radius: $border-radius-lg;
+  box-shadow: $shadow;
+  overflow: hidden;
+}
+
+// ===== Loading Spinner =====
+.spinner {
+  display: inline-block;
+  width: 1.5rem;
+  height: 1.5rem;
+  border: 2px solid $gray-200;
+  border-top-color: $primary;
+  border-radius: 50%;
+  animation: spin 0.6s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+// ===== Responsive =====
+@media (max-width: $breakpoint-md) {
+  .container {
+    padding: 0 $spacing-xl;
+  }
+}

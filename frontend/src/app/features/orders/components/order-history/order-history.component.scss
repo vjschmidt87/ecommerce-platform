@@ -1,0 +1,109 @@
+@use 'variables' as *;
+@use 'mixins' as *;
+
+.order-history-page h1 {
+  @include heading-lg;
+  margin-bottom: $spacing-3xl;
+}
+
+.loading-state {
+  @include flex-column-center;
+  padding: $spacing-8xl;
+  gap: $spacing-xl;
+  color: $gray-500;
+}
+
+.empty-state {
+  @include empty-state;
+
+  p {
+    margin-bottom: $spacing-3xl;
+  }
+}
+
+.orders-list {
+  @include flex-column;
+  gap: $spacing-xl;
+}
+
+.order-card {
+  @include card-base;
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  padding: $spacing-2xl $spacing-3xl;
+  @include card-shadow-sm;
+
+  &:hover {
+    color: inherit;
+  }
+}
+
+.order-header {
+  @include flex-between;
+  margin-bottom: $spacing-xl;
+}
+
+.order-id {
+  .label {
+    font-size: $font-size-base;
+    color: $gray-500;
+    margin-right: $spacing-xs;
+  }
+
+  .value {
+    font-size: $font-size-lg;
+    font-weight: 700;
+    color: $gray-900;
+  }
+}
+
+.order-meta {
+  display: flex;
+  gap: $spacing-5xl;
+}
+
+.meta-item {
+  @include flex-column;
+  gap: $spacing-xs;
+
+  .label {
+    @include label-uppercase;
+    font-size: $font-size-sm;
+  }
+
+  .value {
+    font-size: $font-size-default;
+    font-weight: 500;
+    color: $gray-700;
+
+    &.total {
+      font-weight: 700;
+      color: $gray-900;
+    }
+  }
+}
+
+.order-footer {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: $spacing-xl;
+  padding-top: $spacing-lg;
+  border-top: 1px solid $gray-100;
+}
+
+.view-link {
+  display: flex;
+  align-items: center;
+  gap: $spacing-xs;
+  font-size: $font-size-md;
+  font-weight: 500;
+  color: $primary;
+}
+
+@include mobile {
+  .order-meta {
+    flex-direction: column;
+    gap: $spacing-lg;
+  }
+}

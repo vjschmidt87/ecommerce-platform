@@ -1,0 +1,100 @@
+<div class="auth-page">
+  <div class="auth-card card">
+    <div class="auth-header">
+      <h1>Create Account</h1>
+      <p>Join ShopHub and start shopping</p>
+    </div>
+
+    <div class="auth-error" *ngIf="error">
+      {{ error }}
+    </div>
+
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="auth-form">
+      <div class="form-row">
+        <div class="form-group">
+          <label for="firstName" class="form-label">First Name</label>
+          <input
+            id="firstName"
+            type="text"
+            class="form-input"
+            formControlName="firstName"
+            placeholder="John"
+            autocomplete="given-name">
+          <div class="form-error" *ngIf="f['firstName'].touched && f['firstName'].errors">
+            <span *ngIf="f['firstName'].errors?.['required']">First name is required</span>
+            <span *ngIf="f['firstName'].errors?.['minlength']">At least 2 characters</span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="lastName" class="form-label">Last Name</label>
+          <input
+            id="lastName"
+            type="text"
+            class="form-input"
+            formControlName="lastName"
+            placeholder="Doe"
+            autocomplete="family-name">
+          <div class="form-error" *ngIf="f['lastName'].touched && f['lastName'].errors">
+            <span *ngIf="f['lastName'].errors?.['required']">Last name is required</span>
+            <span *ngIf="f['lastName'].errors?.['minlength']">At least 2 characters</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="email" class="form-label">Email Address</label>
+        <input
+          id="email"
+          type="email"
+          class="form-input"
+          formControlName="email"
+          placeholder="you@example.com"
+          autocomplete="email">
+        <div class="form-error" *ngIf="f['email'].touched && f['email'].errors">
+          <span *ngIf="f['email'].errors?.['required']">Email is required</span>
+          <span *ngIf="f['email'].errors?.['email']">Please enter a valid email</span>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="password" class="form-label">Password</label>
+        <input
+          id="password"
+          type="password"
+          class="form-input"
+          formControlName="password"
+          placeholder="At least 6 characters"
+          autocomplete="new-password">
+        <div class="form-error" *ngIf="f['password'].touched && f['password'].errors">
+          <span *ngIf="f['password'].errors?.['required']">Password is required</span>
+          <span *ngIf="f['password'].errors?.['minlength']">Password must be at least 6 characters</span>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="confirmPassword" class="form-label">Confirm Password</label>
+        <input
+          id="confirmPassword"
+          type="password"
+          class="form-input"
+          formControlName="confirmPassword"
+          placeholder="Repeat your password"
+          autocomplete="new-password">
+        <div class="form-error" *ngIf="f['confirmPassword'].touched && f['confirmPassword'].errors">
+          <span *ngIf="f['confirmPassword'].errors?.['required']">Please confirm your password</span>
+          <span *ngIf="f['confirmPassword'].errors?.['passwordMismatch']">Passwords do not match</span>
+        </div>
+      </div>
+
+      <button type="submit" class="btn btn-primary btn-block btn-lg" [disabled]="loading">
+        <span class="spinner" *ngIf="loading"></span>
+        {{ loading ? 'Creating account...' : 'Create Account' }}
+      </button>
+    </form>
+
+    <div class="auth-footer">
+      <p>Already have an account? <a routerLink="/auth/login">Sign in</a></p>
+    </div>
+  </div>
+</div>

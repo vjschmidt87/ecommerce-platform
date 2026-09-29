@@ -1,0 +1,101 @@
+<div class="checkout-page container">
+  <h1>Checkout</h1>
+
+  <div class="checkout-error" *ngIf="error">
+    {{ error }}
+  </div>
+
+  <div class="checkout-layout">
+    <div class="checkout-form-section">
+      <div class="section-card card">
+        <h2>Shipping Address</h2>
+        <form [formGroup]="addressForm" (ngSubmit)="placeOrder()">
+          <div class="form-group">
+            <label for="street" class="form-label">Street Address</label>
+            <input id="street" type="text" class="form-input" formControlName="street"
+                   placeholder="123 Main Street, Apt 4B" autocomplete="street-address">
+            <div class="form-error" *ngIf="f['street'].touched && f['street'].errors">
+              <span *ngIf="f['street'].errors?.['required']">Street address is required</span>
+              <span *ngIf="f['street'].errors?.['minlength']">At least 5 characters</span>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="city" class="form-label">City</label>
+              <input id="city" type="text" class="form-input" formControlName="city"
+                     placeholder="New York" autocomplete="address-level2">
+              <div class="form-error" *ngIf="f['city'].touched && f['city'].errors">
+                <span *ngIf="f['city'].errors?.['required']">City is required</span>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="state" class="form-label">State</label>
+              <input id="state" type="text" class="form-input" formControlName="state"
+                     placeholder="NY" autocomplete="address-level1">
+              <div class="form-error" *ngIf="f['state'].touched && f['state'].errors">
+                <span *ngIf="f['state'].errors?.['required']">State is required</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="zipCode" class="form-label">ZIP Code</label>
+              <input id="zipCode" type="text" class="form-input" formControlName="zipCode"
+                     placeholder="10001" autocomplete="postal-code">
+              <div class="form-error" *ngIf="f['zipCode'].touched && f['zipCode'].errors">
+                <span *ngIf="f['zipCode'].errors?.['required']">ZIP code is required</span>
+                <span *ngIf="f['zipCode'].errors?.['pattern']">Enter a valid ZIP code</span>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="country" class="form-label">Country</label>
+              <input id="country" type="text" class="form-input" formControlName="country"
+                     autocomplete="country-name">
+              <div class="form-error" *ngIf="f['country'].touched && f['country'].errors">
+                <span *ngIf="f['country'].errors?.['required']">Country is required</span>
+              </div>
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-block btn-lg" [disabled]="loading">
+            <span class="spinner" *ngIf="loading"></span>
+            {{ loading ? 'Placing Order...' : 'Place Order' }}
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <div class="order-summary-section">
+      <div class="section-card card">
+        <h2>Order Summary</h2>
+        <div class="summary-items" *ngIf="cartItems$ | async as items">
+          <div class="summary-item" *ngFor="let item of items; trackBy: trackByItemId">
+            <div class="summary-item-info">
+              <span class="item-name">{{ item.productName }}</span>
+              <span class="item-qty">x{{ item.quantity }}</span>
+            </div>
+            <span class="item-total">{{ item.productPrice * item.quantity | currency:'USD' }}</span>
+          </div>
+        </div>
+        <div class="summary-divider"></div>
+        <div class="summary-row">
+          <span>Subtotal</span>
+          <span>{{ cartTotal$ | async | currency:'USD' }}</span>
+        </div>
+        <div class="summary-row">
+          <span>Shipping</span>
+          <span>{{ shippingCost | currency:'USD' }}</span>
+        </div>
+        <div class="summary-divider"></div>
+        <div class="summary-row summary-total">
+          <span>Total</span>
+          <span>{{ ((cartTotal$ | async) || 0) + shippingCost | currency:'USD' }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

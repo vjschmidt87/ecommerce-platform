@@ -1,0 +1,7 @@
+@use 'variables' as *;
+
+.main-content {
+  min-height: calc(100vh - #{$header-height});
+  padding-top: $spacing-3xl;
+  padding-bottom: $spacing-6xl;
+}

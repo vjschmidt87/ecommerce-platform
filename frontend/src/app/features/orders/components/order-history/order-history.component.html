@@ -1,0 +1,58 @@
+<div class="order-history-page container">
+  <h1>My Orders</h1>
+
+  <div class="loading-state" *ngIf="loading">
+    <div class="spinner"></div>
+    <p>Loading orders...</p>
+  </div>
+
+  <div *ngIf="!loading && orders.length === 0" class="empty-state">
+    <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <path d="M16 10a4 4 0 0 1-8 0"></path>
+    </svg>
+    <h2>No orders yet</h2>
+    <p>Once you place an order, it will appear here.</p>
+    <a routerLink="/products" class="btn btn-primary">Start Shopping</a>
+  </div>
+
+  <div class="orders-list" *ngIf="!loading && orders.length > 0">
+    <a *ngFor="let order of orders; trackBy: trackByOrderId"
+       [routerLink]="['/orders', order.id]"
+       class="order-card card">
+      <div class="order-header">
+        <div class="order-id">
+          <span class="label">Order</span>
+          <span class="value">#{{ order.id }}</span>
+        </div>
+        <span class="badge" [ngClass]="getStatusClass(order.status)">
+          {{ order.status }}
+        </span>
+      </div>
+      <div class="order-body">
+        <div class="order-meta">
+          <div class="meta-item">
+            <span class="label">Date</span>
+            <span class="value">{{ order.createdAt | date:'mediumDate' }}</span>
+          </div>
+          <div class="meta-item">
+            <span class="label">Items</span>
+            <span class="value">{{ getItemCount(order) }}</span>
+          </div>
+          <div class="meta-item">
+            <span class="label">Total</span>
+            <span class="value total">{{ order.totalAmount | currency:'USD' }}</span>
+          </div>
+        </div>
+      </div>
+      <div class="order-footer">
+        <span class="view-link">View Details
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="9 18 15 12 9 6"></polyline>
+          </svg>
+        </span>
+      </div>
+    </a>
+  </div>
+</div>

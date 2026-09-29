@@ -1,0 +1,266 @@
+@use 'variables' as *;
+@use 'mixins' as *;
+
+.order-detail-page {
+  padding-top: $spacing-md;
+}
+
+.loading-state {
+  @include flex-column-center;
+  padding: $spacing-8xl;
+  gap: $spacing-xl;
+  color: $gray-500;
+}
+
+.empty-state {
+  text-align: center;
+  padding: $spacing-8xl $spacing-4xl;
+
+  h2 {
+    font-size: $font-size-2xl;
+    color: $gray-700;
+    margin-bottom: $spacing-xl;
+  }
+}
+
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: $spacing-sm;
+  font-size: $font-size-md;
+  font-weight: 500;
+  color: $gray-500;
+  margin-bottom: $spacing-3xl;
+
+  &:hover {
+    color: $primary;
+  }
+}
+
+.order-header {
+  @include flex-between;
+  align-items: flex-start;
+  margin-bottom: $spacing-3xl;
+
+  h1 {
+    @include heading-lg;
+    margin-bottom: $spacing-xs;
+  }
+}
+
+.order-date {
+  font-size: $font-size-md;
+  color: $gray-500;
+}
+
+.badge-lg {
+  padding: $spacing-xs $spacing-lg;
+  font-size: $font-size-md;
+}
+
+// Status Timeline
+.status-timeline {
+  @include card-base;
+  padding: $spacing-4xl $spacing-5xl;
+  margin-bottom: $spacing-3xl;
+  position: relative;
+}
+
+.timeline-steps {
+  @include flex-between;
+  position: relative;
+  z-index: 1;
+}
+
+.timeline-step {
+  @include flex-column;
+  align-items: center;
+  gap: $spacing-base;
+}
+
+.step-dot {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background-color: $gray-200;
+  border: 3px solid $white;
+  box-shadow: 0 0 0 2px $gray-200;
+  transition: $transition;
+}
+
+.timeline-step.complete .step-dot {
+  background-color: $primary;
+  box-shadow: 0 0 0 2px $primary;
+}
+
+.timeline-step.current .step-dot {
+  background-color: $primary;
+  box-shadow: 0 0 0 2px $primary, 0 0 0 6px $primary-alpha-20;
+}
+
+.step-label {
+  font-size: $font-size-base;
+  font-weight: 500;
+  color: $gray-400;
+  text-transform: capitalize;
+}
+
+.timeline-step.complete .step-label,
+.timeline-step.current .step-label {
+  color: $primary;
+  font-weight: 600;
+}
+
+.timeline-bar {
+  position: absolute;
+  top: calc(#{$spacing-4xl} + 10px);
+  left: $spacing-5xl;
+  right: $spacing-5xl;
+  height: 4px;
+  background-color: $gray-200;
+  border-radius: 2px;
+}
+
+.timeline-progress {
+  height: 100%;
+  background-color: $primary;
+  border-radius: 2px;
+  transition: $transition-width;
+}
+
+// Cancelled
+.cancelled-notice {
+  @include card-base;
+  display: flex;
+  align-items: center;
+  gap: $spacing-lg;
+  padding: $spacing-2xl $spacing-3xl;
+  margin-bottom: $spacing-3xl;
+  color: $danger-text;
+  background-color: $danger-light;
+  border: 1px solid $danger-border;
+}
+
+// Detail Grid
+.detail-grid {
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  gap: $spacing-3xl;
+  margin-bottom: $spacing-3xl;
+}
+
+.items-section,
+.address-section {
+  @include card-base;
+  padding: $spacing-3xl;
+
+  h2 {
+    @include heading-md;
+    margin-bottom: $spacing-xl;
+  }
+}
+
+.order-items {
+  @include flex-column;
+  gap: $spacing-lg;
+}
+
+.order-item {
+  display: flex;
+  align-items: center;
+  gap: $spacing-xl;
+  padding: $spacing-lg 0;
+  border-bottom: 1px solid $gray-100;
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.item-image {
+  width: 56px;
+  height: 56px;
+  border-radius: $border-radius-sm;
+  overflow: hidden;
+  flex-shrink: 0;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+.image-placeholder {
+  @include image-placeholder;
+}
+
+.item-details {
+  flex: 1;
+
+  h3 {
+    font-size: $font-size-default;
+    font-weight: 600;
+    color: $gray-800;
+    margin-bottom: 0.125rem;
+  }
+
+  p {
+    font-size: $font-size-base;
+    color: $gray-500;
+  }
+}
+
+.item-total {
+  font-weight: 600;
+  color: $gray-900;
+  font-size: $font-size-default;
+}
+
+.order-totals {
+  border-top: 1px solid $gray-200;
+  margin-top: $spacing-lg;
+  padding-top: $spacing-lg;
+}
+
+.total-row {
+  @include summary-row;
+}
+
+.total-final {
+  font-size: $font-size-xl;
+  font-weight: 700;
+  color: $gray-900;
+  padding-top: $spacing-lg;
+  margin-top: $spacing-md;
+  border-top: 1px solid $gray-200;
+}
+
+.address-content p {
+  color: $gray-600;
+  line-height: 1.7;
+}
+
+.order-actions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+@include tablet {
+  .order-header {
+    flex-direction: column;
+    gap: $spacing-lg;
+  }
+
+  .detail-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .status-timeline {
+    padding: $spacing-3xl $spacing-xl;
+  }
+
+  .step-label {
+    font-size: $font-size-xs;
+  }
+}

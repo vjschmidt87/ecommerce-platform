@@ -1,0 +1,55 @@
+@use 'variables' as *;
+@use 'mixins' as *;
+
+.auth-page {
+  @include auth-page-layout;
+}
+
+.auth-card {
+  @include auth-card(440px);
+}
+
+.auth-header {
+  text-align: center;
+  margin-bottom: $spacing-4xl;
+
+  h1 {
+    font-size: $font-size-3xl;
+    font-weight: 700;
+    color: $gray-900;
+    margin-bottom: $spacing-md;
+  }
+
+  p {
+    color: $gray-500;
+    font-size: $font-size-default;
+  }
+}
+
+.auth-error {
+  @include error-alert;
+}
+
+.auth-form {
+  margin-bottom: $spacing-3xl;
+}
+
+.auth-footer {
+  text-align: center;
+  padding-top: $spacing-3xl;
+  border-top: 1px solid $gray-200;
+
+  p {
+    color: $gray-500;
+    font-size: $font-size-md;
+  }
+
+  a {
+    color: $primary;
+    font-weight: 500;
+
+    &:hover {
+      color: $primary-dark;
+    }
+  }
+}
